@@ -1,0 +1,17 @@
+%h1
+  = @question.text
+
+
+= form_tag "/response/#{@question.id}", method: :post do
+  %table
+    %tr
+      %td
+        = text_area_tag :text, ""
+        - if Question.last.id == @question.id
+          = submit_tag "Complete", class: "btn btn-primary btn-med"
+        - else
+          = submit_tag "Submit", class: "btn btn-default btn-med"
+
+
+- if @question.id != 1
+  = link_to "Previous", "/question/#{@question.id-1}", class: "btn btn-default", id: 1
