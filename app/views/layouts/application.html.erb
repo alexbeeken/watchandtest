@@ -8,10 +8,35 @@
 </head>
 <body>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
 
-<%= yield %>
+  <% if user_signed_in? %>
+    <div class="nav-header">
+      <h1>Music Education Survey</h1>
+      <div class="header">
+        <div class="signoutbutton">
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+  <div class="header">
+    <div class="bg-danger">
+      <p class="alert"><%= alert %></p>
+    </div>
+  </div>
+  <% elsif flash[:notice] %>
+  <div class="header">
+    <div class="bg-info">
+      <p class="notice"><%= notice %></p>
+    </div>
+  </div>
+  <% end %>
+
+<div class="content-page">
+  <%= yield %>
+</div>
 
 </body>
 </html>

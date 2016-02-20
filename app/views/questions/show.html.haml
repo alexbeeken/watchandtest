@@ -1,17 +1,60 @@
-%h1
-  = @question.text
+- if @question.response_type == "text"
+  .question-container
+    .jumbotron
+      .container
+        .question-text
+          %h3
+            = @question.text
+        = form_tag "/response/#{@question.id}", method: :post do
+          .row
+            .col-lg-1
+              .col-centered
+                .response-text-area
+                  = text_area_tag :text, ""
+            %br
+            %br
+            .response-buttons
+              .col-md-12
+                .col-centered
+                  - if @question.id != 1
+                    = link_to "Previous", "/question/#{@question.id-1}", class: "btn btn-default", id: 1
 
+                  - if Question.last.id == @question.id
+                    = submit_tag "Complete Survey", class: "btn btn-primary btn-med"
+                  - else
+                    = submit_tag "Next", class: "btn btn-default btn-med"
 
-= form_tag "/response/#{@question.id}", method: :post do
-  %table
-    %tr
-      %td
-        = text_area_tag :text, ""
-        - if Question.last.id == @question.id
-          = submit_tag "Complete", class: "btn btn-primary btn-med"
-        - else
-          = submit_tag "Submit", class: "btn btn-default btn-med"
+- elsif @question.response_type == "select"
+  .question-container
+    .jumbotron
+      .container
+        .question-text
+          %h3
+            = @question.text
+        = form_tag "/response/#{@question.id}", method: :post do
+          .row
+            - if @question.media
+              .col-lg-1
+                .col-centered
+                  .question-media
+                    = image_tag  "http://media.showmeapp.com/files/391818/pictures/thumbs/711132/last_thumb1361051447.jpg"
+                    %br
+                    %br
+            - JSON.parse(@question.choices).each do |choice|
+              .col-lg-1
+                .col-centered
+                  = radio_button_tag :response, choice, checked: false
+                  = choice
+                  %br
+            %br
+            %br
+            .response-buttons
+              .col-md-12
+                .col-centered
+                  - if @question.id != 1
+                    = link_to "Previous", "/question/#{@question.id-1}", class: "btn btn-default", id: 1
 
-
-- if @question.id != 1
-  = link_to "Previous", "/question/#{@question.id-1}", class: "btn btn-default", id: 1
+                  - if Question.last.id == @question.id
+                    = submit_tag "Complete Survey", class: "btn btn-primary btn-med"
+                  - else
+                    = submit_tag "Next", class: "btn btn-default btn-med"
