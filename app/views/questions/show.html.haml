@@ -5,19 +5,20 @@
         .question-text
           %h3
             = @question.text
-        = form_tag "/response/#{@question.id}", method: :post do
+        = form_tag "/questions", method: :post do
           .row
             .col-lg-1
               .col-centered
                 .response-text-area
                   = text_area_tag :text, ""
+                  = hidden_field_tag :id, @question.id
             %br
             %br
             .response-buttons
               .col-md-12
                 .col-centered
                   - if @question.id != 1
-                    = link_to "Previous", "/question/#{@question.id-1}", class: "btn btn-default", id: 1
+                    = link_to "Previous", "/questions/#{@question.id-1}", class: "btn btn-default", id: 1
 
                   - if Question.last.id == @question.id
                     = submit_tag "Complete Survey", class: "btn btn-primary btn-med"
@@ -31,7 +32,7 @@
         .question-text
           %h3
             = @question.text
-        = form_tag "/response/#{@question.id}", method: :post do
+        = form_tag "/questions", method: :post do
           .row
             - if @question.media
               .col-lg-1
@@ -45,6 +46,7 @@
                 .col-centered
                   = radio_button_tag :response, choice, checked: false
                   = choice
+                  = hidden_field_tag :id, @question.id
                   %br
             %br
             %br
@@ -52,7 +54,7 @@
               .col-md-12
                 .col-centered
                   - if @question.id != 1
-                    = link_to "Previous", "/question/#{@question.id-1}", class: "btn btn-default", id: 1
+                    = link_to "Previous", "/questions/#{@question.id-1}", class: "btn btn-default", id: 1
 
                   - if Question.last.id == @question.id
                     = submit_tag "Complete Survey", class: "btn btn-primary btn-med"

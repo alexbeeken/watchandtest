@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220194100) do
+ActiveRecord::Schema.define(version: 20160220231045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assessments", force: :cascade do |t|
+    t.integer "user_id"
+    t.boolean "before"
+  end
 
   create_table "questions", force: :cascade do |t|
     t.string "text"
@@ -27,6 +32,8 @@ ActiveRecord::Schema.define(version: 20160220194100) do
     t.integer "user_id"
     t.integer "question_id"
     t.string  "text"
+    t.boolean "recorded",      default: false
+    t.integer "assessment_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160220194100) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.boolean  "watched_video"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
