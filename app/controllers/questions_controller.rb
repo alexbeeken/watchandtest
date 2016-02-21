@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :check_if_finished
 
   def show
     @question = Question.find(question_params[:id])
@@ -13,6 +14,8 @@ class QuestionsController < ApplicationController
     else
       Assessment.save_assessment(current_user)
       if current_user.watched_video
+        current_user.finished = true
+        current_user.save
         redirect_to "/thankyou"
       else
         current_user.watched_video = true
@@ -26,6 +29,12 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.permit(:id, :text)
+  end
+
+  def check_if_finished
+    if current_user.finished
+      redirect_to "/thankyou"
+    end
   end
 
 end
