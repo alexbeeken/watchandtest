@@ -1,0 +1,5 @@
+.thankyoutext
+  %h1
+    Sorry, #{@user.email} there are no questions for you to answer! Please check back later.
+
+= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm"

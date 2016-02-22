@@ -1,11 +1,15 @@
 class HomeController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :check_if_finished, except: :thankyou
+  before_filter :check_if_finished, except: [:thankyou, :noquestions]
 
   def welcome
-    @first_question_id = Question.first.id
-    @user = current_user
+    unless Question.first
+      redirect_to "/noquestions"
+    else
+      @first_question_id = Question.first.id
+      @user = current_user
+    end
   end
 
   def video
@@ -17,11 +21,15 @@ class HomeController < ApplicationController
     @user = current_user
   end
 
+  def noquestions
+    @user = current_user
+  end
+
   private
 
   def check_if_finished
     if current_user.finished
-      redirect_to "/thankyou"
+      redirect_to "/noquestions"
     end
   end
 end

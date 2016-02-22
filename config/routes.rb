@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/thankyou', to: 'home#thankyou'
   get '/questions/:id', to: 'questions#show'
   post '/questions', to: 'questions#create'
+  get '/noquestions', to: 'home#noquestions'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
