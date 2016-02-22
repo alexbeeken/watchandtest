@@ -15,7 +15,7 @@ class Question < ActiveRecord::Base
     Question.create(text: "Is this time signature in duple or triple meter?", response_type: "select", choices: JSON.generate(["duple", "triple"]), media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/question_media_1.png")
     Question.create(text: "Why do we need time signatures?", response_type: "text", after_only: false)
     Question.create(text: "Did you feel the video’s humor was helpful or distracting?", response_type: "text", after_only: true)
-    Question.create(text: "What level of enjoyment did you experience watching this video?", after_only: true, response_type: "select", choices: JSON.generate(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]))
+    Question.create(text: "What level of enjoyment did you experience watching this video?", after_only: true, response_type: "select", choices: JSON.generate(["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]))
     Question.create(text: "What are you still unsure on?", response_type: "text", after_only: true)
     Question.create(text: "Are there any other things you noticed that wasn't helpful about the video? (pacing, clarity, repetition, missing steps, etc.)", response_type: "text", after_only: true)
   end
