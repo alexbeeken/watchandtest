@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
   has_many :responses
 
   def reset
-    watched_video = false
-    finished = false
-    save
+    self.watched_video = false
+    self.finished = false
+    self.save
   end
 
   def self.reset_all
