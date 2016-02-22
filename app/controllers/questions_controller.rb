@@ -5,11 +5,13 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(question_params[:id])
+    @question_count = get_question_count
+    @question_number = get_question_number
   end
 
   def create
     Response.create(text: question_params[:text], question_id: question_params[:id], user_id: current_user.id)
-    if Question.last.id != question_params[:id].to_i
+    unless last_question
       redirect_to "/questions/#{question_params[:id].to_i+1}"
     else
       Assessment.save_assessment(current_user)
@@ -26,6 +28,25 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def get_question_count
+    if current_user.watched_video
+      Question.count
+    else
+      Question.count - Question.where(after_only: true).count
+    end
+  end
+
+  def get_question_number
+    @question.id - Question.first.id + 1
+  end
+
+  def last_question
+    # returns false if this is an after question when the user hasn't seen the video
+    # returns false if this is the last question in general
+    return true if Question.last.id == question_params[:id].to_i
+    return ((Question.find(question_params[:id].to_i + 1).after_only && (current_user.watched_video == false)))
+  end
 
   def question_params
     params.permit(:id, :text)

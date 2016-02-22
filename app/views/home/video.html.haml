@@ -7,4 +7,4 @@
   .row
     .col-lg-1
       .col-centered
-        = link_to "Begin Survey", '/questions/1', class: "btn btn-primary btn-lg", id: 1, data: { confirm: "Just making sure you didn't accidently skip the video. If you did, go back and watch it first. You won't be able to go back. : )" }
+        = link_to "Begin Survey", "/questions/#{@first_question_id}", class: "btn btn-primary btn-lg", id: 1, data: { confirm: "Just making sure you didn't accidently skip the video. If you did, go back and watch it first. You won't be able to go back. : )" }

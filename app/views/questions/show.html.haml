@@ -1,3 +1,6 @@
+= "Question #{@question_number} of #{@question_count}."
+
+
 - if @question.response_type == "text"
   .question-container
     .jumbotron
@@ -6,6 +9,13 @@
           %h3
             = @question.text
         = form_tag "/questions", method: :post do
+          - if @question.media
+            .col-lg-1
+              .col-centered
+                .question-media
+                  = image_tag  @question.media
+                  %br
+                  %br
           .row
             .col-lg-1
               .col-centered
@@ -38,7 +48,7 @@
               .col-lg-1
                 .col-centered
                   .question-media
-                    = image_tag  "http://media.showmeapp.com/files/391818/pictures/thumbs/711132/last_thumb1361051447.jpg"
+                    = image_tag  @question.media
                     %br
                     %br
             - JSON.parse(@question.choices).each do |choice|

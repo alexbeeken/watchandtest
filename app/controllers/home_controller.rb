@@ -4,10 +4,12 @@ class HomeController < ApplicationController
   before_filter :check_if_finished, except: :thankyou
 
   def welcome
+    @first_question_id = Question.first.id
     @user = current_user
   end
 
   def video
+    @first_question_id = Question.first.id
     @url = "https://www.youtube.com/watch?v=F4pT4s8hUVM"
   end
 
