@@ -10,7 +10,7 @@ class AddRelationshipsToAssessment < ActiveRecord::Migration
     end
 
     change_table :users do |t|
-      t.boolean :watched_video
+      t.boolean :watched_video, default: false
     end
   end
 end

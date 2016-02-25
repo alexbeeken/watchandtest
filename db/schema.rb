@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160222042408) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.boolean  "watched_video"
+    t.boolean  "watched_video",          default: false
     t.boolean  "finished",               default: false
   end
 

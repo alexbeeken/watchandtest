@@ -46,6 +46,7 @@ class QuestionsController < ApplicationController
     # returns false if this is the last question in general
     return true if Question.last.id == question_params[:id].to_i
     return ((Question.find(question_params[:id].to_i + 1).after_only && (current_user.watched_video == false)))
+    false
   end
 
   def question_params
