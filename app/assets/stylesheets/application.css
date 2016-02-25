@@ -15,6 +15,11 @@
  *= require bootstrap.min
  */
 
+textarea {
+  width: 60vw;
+  height: 10vw;
+}
+
 .intro-text {
  padding: 10px;
 }
