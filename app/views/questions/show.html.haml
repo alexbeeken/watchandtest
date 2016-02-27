@@ -46,7 +46,7 @@
           .row
             - if @question.media
               .row
-                .col-lg-1
+                .col-md-6
                   .col-centered
                     .question-media
                       = image_tag  @question.media
@@ -63,7 +63,7 @@
             %br
             %br
             .response-buttons
-              .col-md-12
+              .col-md-6
                 .col-centered
                   - if @question.id != Question.first.id
                     = link_to "Previous", "/questions/#{@question.id-1}", class: "btn btn-default", id: 1

@@ -10,7 +10,13 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    Response.create(text: question_params[:text], question_id: question_params[:id], user_id: current_user.id)
+    previous_record = Response.where(user_id: current_user.id, question_id: question_params[:id], assessment_id: nil)
+    if previous_record[0]
+      previous_record[0].text = question_params[:text]
+      previous_record[0].save
+    else
+      Response.create(text: question_params[:text], question_id: question_params[:id], user_id: current_user.id)
+    end
     unless last_question
       redirect_to "/questions/#{question_params[:id].to_i+1}"
     else
