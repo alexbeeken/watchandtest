@@ -55,7 +55,7 @@
             = hidden_field_tag :id, @question.id
             - JSON.parse(@question.choices).each do |choice|
               .row
-                = radio_button_tag :response, choice, checked: false
+                = radio_button_tag :text, choice, checked: false
                 = choice
                 %br
                 %br
