@@ -6,7 +6,7 @@ class Assessment < ActiveRecord::Base
   def self.save_assessment(current_user)
     assessment = Assessment.create(user_id: current_user.id)
     responses = current_user.responses.where(recorded: false)
-    responses.map { |response| response.assessment_id = assessment.id response.recorded = true}
+    responses.map { |response| response.assessment_id = assessment.id; response.recorded = true; response.save}
   end
 
 end
