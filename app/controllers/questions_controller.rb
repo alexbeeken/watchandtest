@@ -14,12 +14,16 @@ class QuestionsController < ApplicationController
     unless last_question
       redirect_to "/questions/#{question_params[:id].to_i+1}"
     else
-      Assessment.save_assessment(current_user)
+      assessment = Assessment.save_assessment(current_user)
       if current_user.watched_video
+        assessment.before = false
+        assessment.save
         current_user.finished = true
         current_user.save
         redirect_to "/thankyou"
       else
+        assessment.before = true
+        assessment.save
         current_user.watched_video = true
         current_user.save
         redirect_to "/video"

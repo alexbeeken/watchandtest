@@ -2,6 +2,10 @@ class Question < ActiveRecord::Base
 
   has_many :responses
 
+  def index_count
+    @question.id - Question.first.id + 1
+  end
+
   def self.create_time_signature_questions
     # TODO needs more questions about the bottom number in the time signature
     # TODO questions need to be revised to have more multiple choice
@@ -24,28 +28,29 @@ class Question < ActiveRecord::Base
   end
 
   def self.create_beat_and_durations_questions
-    Question.create(text: "What is the beat in music most similar to?", response_type: "select", choices: ["your pulse", "your shoe size", "your hair color", "your lung capacity"].shuffle)
-    Question.create(text: "What is the tempo in music?", response_type: "select", choices: ["the speed", "the volume", "the mood", "the historical period", "the composer"].shuffle)
-    Question.create(text: "What does increasing the tempo do to a song?", response_type: "select", choices: ["makes it shorter", "makes it longer", "makes it easier to perform", "makes it sadder", "makes it calmer"].shuffle)
-    Question.create(text: "What is the rhythmic value of a note?", response_type: "select", choices: ["how many beats you play it for", "how creative it's rhythm is", "how many quarter notes it's worth", "the time it takes to finish the song", "the way that you play the note"].shuffle)
-    Question.create(text: "What defines the number of beats a whole note is worth?", response_type: "select", choices: ["Time Signature", "Whole Note", "Quarter Note", "Tempo", "Beat"].shuffle)
-    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "2", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_1.png")
-    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "1.5", "2", "3", "3.5", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_2.png")
-    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_3.png")
-    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_4.png")
+    Question.create(text: "What is the beat in music most similar to?", response_type: "select", choices: ["your pulse", "your shoe size", "your hair color", "your lung capacity"].shuffle, correct_answer: "you pulse")
+    Question.create(text: "What is the tempo in music?", response_type: "select", choices: ["the speed", "the volume", "the mood", "the historical period", "the composer"].shuffle, correct_answer: "the speed")
+    Question.create(text: "What does increasing the tempo do to a song?", response_type: "select", choices: ["makes it shorter", "makes it longer", "makes it easier to perform", "makes it sadder", "makes it calmer"].shuffle, correct_answer: "makes it shorter")
+    Question.create(text: "What is the rhythmic value of a note?", response_type: "select", choices: ["how many beats you play it for", "how creative it's rhythm is", "how many quarter notes it's worth", "the time it takes to finish the song", "the way that you play the note"].shuffle, correct_answer: "how many beats you play it for")
+    Question.create(text: "What defines the number of beats a whole note is worth?", response_type: "select", choices: ["Time Signature", "Whole Note", "Quarter Note", "Tempo", "Beat"].shuffle, correct_answer: "Time Signature")
+    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "2", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_1.png", correct_answer: "4")
+    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "1.5", "2", "3", "3.5", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_2.png", correct_answer: "1")
+    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_3.png", correct_answer: "2")
+    Question.create(text: "If a whole note is worth 4 beats, how many beats is this note worth?", response_type: "select", choices: ["0.25", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"], media: "https://s3-us-west-2.amazonaws.com/videoassessmentsurvey/duration_media_4.png", correct_answer: "0.5")
     #survey questions for after viewing the video
     afters = [
       Question.create(text: "Did you feel the video’s humor was helpful or distracting?", response_type: "text", after_only: true),
       Question.create(text: "What level of enjoyment did you experience watching this video?", after_only: true, response_type: "select", choices: JSON.generate(["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"])),
       Question.create(text: "What are you still unsure on?", response_type: "text", after_only: true),
-      Question.create(text: "Are there any other things you noticed that weren't helpful about the video? (pacing, clarity, repetition, missing steps, etc.)", response_type: "text", after_only: true)
+      Question.create(text: "Are there any other things you noticed that weren't helpful about the video? (pacing, clarity, repetition, missing steps, etc.)", response_type: "text", after_only: true),
+      Question.create(text: "Is this something you would give as homework for your students? Please explain.", response_type: "text", after_only: true),
+      Question.create(text: "Is this something you would play in the classroom? Please explain.", response_type: "text", after_only: true),
     ]
 
     afters.each do |question|
       question.after_only = true
       question.save
     end
-
   end
 
   def self.delete_all

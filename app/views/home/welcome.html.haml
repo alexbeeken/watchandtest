@@ -1,9 +1,20 @@
-.intro-text
-  .text-center.text-overflow
-    %h2 Please watch this video and then fill out the survey.
-  .text-center.text-overflow
-    %h2 Please answer honestly and do not rely on any sources for help.
+.jumbotron
+  .instructions-container
+    %h3 This survey involves 3 activities and takes approximately 10 - 15 minutes.
+    <br>
+    .instructions-container
+      .instructions
+        %h4 1. You will be asked to complete a pre-test.
+        %h4 2. You will be asked to watch a video.
+        %h4 3. You will be asked to complete a post-test.
+      <br>
+      <br>
+      <br>
+      <br>
+%h4 When you are ready and away from distractions please click "Take Pre-Test" to begin.
+
+
 
 %br
 .getstarted
-  = link_to "Get Started", "/questions/#{@first_question_id}", class: "btn btn-primary btn-lg", id: 1
+  = link_to "Take Pre-Test", "/questions/#{@first_question_id}", class: "btn btn-primary btn-lg", id: 1

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get '/questions/:id', to: 'questions#show'
   post '/questions', to: 'questions#create'
   get '/noquestions', to: 'home#noquestions'
+  get '/results', to: 'home#results'
+  get '/nodata', to: 'home#nodata'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
