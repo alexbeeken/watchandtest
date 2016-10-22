@@ -8,12 +8,16 @@ class AssessmentController < ApplicationController
     assessment = Assessment.create(assessment_params)
     current_user.assessments << assessment
     current_user.save
-    redirect_to teacher_path
+    redirect_to assessment_index_path
   end
 
   def show
     @assessment = Assessment.find(params[:id])
     @questions = @assessment.questions
+  end
+
+  def index
+    @assessments = current_user.assessments
   end
 
   def new
