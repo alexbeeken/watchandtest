@@ -8,17 +8,29 @@
 </head>
 <body>
 
-
-    <div class="nav-header">
-      <h1>Music Education Survey</h1>
-      <div class="header">
-        <div class="signoutbutton">
-          <% if user_signed_in? %>
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm" %>
-          <% end %>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="nav-header">
+          <a class="navbar-brand" href='/'>Music Education Survey</a>
         </div>
-      </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <% if user_signed_in? %>
+                <span class="sr-only">
+                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm" %>
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <% if current_user.teacher? %>
+                <%= link_to "Assessments", assessments_path, class: "btn btn-default btn-sm" %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
     </div>
+  </nav>
 
   <% if flash[:alert] %>
   <div class="header">

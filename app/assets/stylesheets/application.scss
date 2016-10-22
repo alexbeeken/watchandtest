@@ -34,10 +34,6 @@ textarea {
  padding: 10px;
 }
 
-.nav-header h1 {
-  font-size: 4vw;
-}
-
 iframe {
   position: absolute;
   top:0;
@@ -66,29 +62,9 @@ iframe {
   overflow: hidden;
 }
 
- .col-centered {
+.col-centered {
   float: none;
   margin: 0 auto;
-
-}
-
-.nav-header {
-  width: 100%;
-  height: 5.6vw;
-  border-bottom: thin solid #989B9C;
-}
-
-.nav-footer {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: thin solid #989B9C;
-}
-
-.signoutbutton {
-  position: relative;
-  float: right;
-  margin-top: -40px;
-  padding-right: 13px;
 }
 
 .content-page {
