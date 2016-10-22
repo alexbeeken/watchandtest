@@ -4,11 +4,11 @@
     - @assessments.each do |assessment|
       %tr
         %td
-          = link_to assessment.name, action: :show, id: assessment.id, controller: :assessments
+          = link_to assessment.name, assessment_path(id: assessment.id)
 
     %tr
       %td
-        = form_tag assessment_path do
+        = form_tag assessment_index_path do
           .form-group
             = label :assessment, :name, 'name'
             = text_field :assessment, :name

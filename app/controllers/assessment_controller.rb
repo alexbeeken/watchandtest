@@ -1,4 +1,4 @@
-class AssessmentsController < ApplicationController
+class AssessmentController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :verify_teacher, only: [:create]
@@ -8,7 +8,7 @@ class AssessmentsController < ApplicationController
     assessment = Assessment.create(assessment_params)
     current_user.assessments << assessment
     current_user.save
-    redirect_to nodata_path
+    redirect_to teacher_path
   end
 
   def show
