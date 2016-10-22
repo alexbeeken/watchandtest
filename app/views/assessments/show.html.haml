@@ -1,0 +1,97 @@
+
+
+.jumbotron
+  %h1 Pre Test
+  %table.table
+    %thead
+      %tr
+        %th.header-cell
+          User
+        %th.header-cell
+          = "%"
+        - @questions.each do |question|
+          - unless question.after_only
+            %th
+              = question.id
+      - User.all.each do |user|
+        - unless user.admin || user.assessments.empty?
+          %tr
+            %td
+              = user.id
+            %td
+              = user.assessments.first.correct_percentage
+            - user.assessments.first.responses.each do |response|
+              - unless response.question.after_only
+                - if response.question.correct_answer == "none"
+                  %td.info.response-cell
+                    = response.text
+                - elsif response.question.correct_answer == response.text
+                  %td.success.response-cell
+                    = response.text
+                - else
+                  %td.warning.response-cell
+                    = response.text
+
+.jumbotron
+  %h1 Post Test
+  %table.table
+    %thead
+      %tr
+        %th.header-cell
+          User
+        %th.header-cell
+          = "%"
+        - @questions.each do |question|
+          - unless question.after_only
+            %th
+              = question.id
+      - User.all.each do |user|
+        - unless user.admin || user.assessments.empty?
+          %tr
+            %td
+              = user.id
+            %td
+              = user.assessments.last.correct_percentage
+            - user.assessments.last.responses.each do |response|
+              - unless response.question.after_only
+                - if response.question.correct_answer == "none"
+                  %td.info.response-cell
+                    = response.text
+                - elsif response.question.correct_answer == response.text
+                  %td.success.response-cell
+                    = response.text
+                - else
+                  %td.warning.response-cell
+                    = response.text
+
+.jumbotron
+  %h1 Survey Responses
+  %table.table
+    %thead
+      %tr
+        %th
+          User
+        %th
+          = "%"
+        - @questions.each do |question|
+          - if question.after_only
+            %th
+              = question.id
+      - User.all.each do |user|
+        - unless user.admin || user.assessments.empty?
+          %tr
+            %td
+              = user.id
+            %td
+              = user.assessments.last.correct_percentage
+            - user.assessments.last.responses.each do |response|
+              - if response.question.after_only
+                - if response.question.correct_answer == "none"
+                  %td.info
+                    = response.text
+                - elsif response.question.correct_answer == response.text
+                  %td.success
+                    = response.text
+                - else
+                  %td.warning
+                    = response.text

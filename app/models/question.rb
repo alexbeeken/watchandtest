@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
 
   has_many :responses
+  belongs_to :assessment
 
   def index_count
     @question.id - Question.first.id + 1

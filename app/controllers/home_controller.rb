@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :check_if_finished, except: [:thankyou, :noquestions, :results, :nodata]
+  before_filter :check_if_finished, except: [:thankyou, :noquestions, :results, :teacher]
 
   def welcome
     if Question.first.nil?
@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     @questions = Question.all
   end
 
-  def nodata
+  def teacher
     @assessments = current_user.assessments
   end
 

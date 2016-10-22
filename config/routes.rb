@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   get '/thankyou', to: 'home#thankyou'
   get '/noquestions', to: 'home#noquestions'
   get '/results', to: 'home#results'
-  get '/nodata', to: 'home#nodata'
+  get '/teacher', to: 'home#teacher'
 
-  resource :assessment
+  resources :assessment do
+    resources :questions
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

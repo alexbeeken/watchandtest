@@ -12,7 +12,8 @@ class AssessmentsController < ApplicationController
   end
 
   def show
-
+    @assessment = Assessment.find(params[:id])
+    @questions = @assessment.questions
   end
 
   def new
@@ -26,7 +27,9 @@ class AssessmentsController < ApplicationController
   end
 
   def authorize_resource
-    current_user.admin
+    current_user.admin ||
+      (current_user.teacher &&
+      Assessment.find(params[:id]).users.include?(current_user))
   end
 
   def verify_teacher
