@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   root to: "home#welcome"
   get '/video', to: 'home#video'
   get '/thankyou', to: 'home#thankyou'
-  get '/questions/:id', to: 'questions#show'
-  post '/questions', to: 'questions#create'
   get '/noquestions', to: 'home#noquestions'
   get '/results', to: 'home#results'
   get '/nodata', to: 'home#nodata'
+
+  resource :assessment
 
 
   # The priority is based upon order of creation: first created -> highest priority.

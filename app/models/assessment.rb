@@ -1,7 +1,8 @@
 class Assessment < ActiveRecord::Base
 
   has_many :responses
-  belongs_to :user
+  has_many :questions
+  has_many :users
 
   def self.save_assessment(current_user)
     assessment = Assessment.create(user_id: current_user.id)
@@ -18,6 +19,10 @@ class Assessment < ActiveRecord::Base
       end
     end
     return (correct / Question.where(response_type: "select").count) * 100
+  end
+
+  def teachers
+    users.where(teacher: true)
   end
 
 end

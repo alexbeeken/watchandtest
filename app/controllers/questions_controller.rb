@@ -37,6 +37,10 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def new
+    
+  end
+
   private
 
   def get_question_count

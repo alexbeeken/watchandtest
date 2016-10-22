@@ -1,5 +1,15 @@
-.thankyoutext
-  %h1
-    Sorry, there is no data to display.
+%table.table.table-striped
+  %thead
+    Assessments
+    - @assessments.each do |assessment|
+      %tr
+        %td
+          = link_to assessment.name, action: :show, id: assessment.id, controller: :assessments
 
-= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm"
+    %tr
+      %td
+        = form_tag assessment_path do
+          .form-group
+            = label :assessment, :name, 'name'
+            = text_field :assessment, :name
+          = submit_tag 'Save Changes'

@@ -36,7 +36,7 @@ class HomeController < ApplicationController
   end
 
   def nodata
-
+    @assessments = current_user.assessments
   end
 
   private
