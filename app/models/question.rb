@@ -2,6 +2,11 @@ class Question < ActiveRecord::Base
 
   has_many :responses
   belongs_to :assessment
+  after_create :assign_order_id
+
+  def assign_order_id
+    update!(order_id: assessment.questions.count + 1)
+  end
 
   def index_count
     @question.id - Question.first.id + 1

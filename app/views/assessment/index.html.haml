@@ -1,10 +1,15 @@
 %table.table.table-striped
   %thead
     Assessments
-    - @assessments.each do |assessment|
+    - if @assessments.present?
+      - @assessments.each do |assessment|
+        %tr
+          %td
+            = link_to assessment.name, assessment_path(id: assessment.id)
+    - else
       %tr
         %td
-          = link_to assessment.name, assessment_path(id: assessment.id)
+          You do not have any assessments! Please create one below.
 
     %tr
       %td

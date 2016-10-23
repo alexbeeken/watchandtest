@@ -2,7 +2,7 @@ class Assessment < ActiveRecord::Base
 
   has_many :responses
   has_many :questions
-  has_many :users
+  has_and_belongs_to_many :users
 
   def self.save_assessment(current_user)
     assessment = Assessment.create(user_id: current_user.id)

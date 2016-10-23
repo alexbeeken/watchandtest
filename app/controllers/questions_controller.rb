@@ -9,36 +9,19 @@ class QuestionsController < ApplicationController
     @question_number = get_question_number
   end
 
+  def index
+    @assessment = Assessment.find(params[:assessment_id])
+    redirect_to assessment_path(@assessment.id)
+  end
+
   def create
-    previous_record = Response.where(user_id: current_user.id, question_id: question_params[:id], assessment_id: nil)
-    if previous_record[0]
-      previous_record[0].text = question_params[:text]
-      previous_record[0].save
-    else
-      Response.create(text: question_params[:text], question_id: question_params[:id], user_id: current_user.id)
-    end
-    unless last_question
-      redirect_to "/questions/#{question_params[:id].to_i+1}"
-    else
-      assessment = Assessment.save_assessment(current_user)
-      if current_user.watched_video
-        assessment.before = false
-        assessment.save
-        current_user.finished = true
-        current_user.save
-        redirect_to "/thankyou"
-      else
-        assessment.before = true
-        assessment.save
-        current_user.watched_video = true
-        current_user.save
-        redirect_to "/video"
-      end
-    end
+    assessment = Assessment.find(params[:assessment_id])
+    assessment.questions.create(question_params[:question])
+    redirect_to assessment_questions_path(assessment_id: assessment.id)
   end
 
   def new
-    
+    @assessment = Assessment.find(params[:assessment_id])
   end
 
   private
@@ -63,7 +46,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.permit(:id, :text)
+    params.permit(:id, question: [:text])
   end
 
   def check_if_finished

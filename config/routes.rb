@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root to: "home#welcome"
+  root to: 'home#index'
   get '/video', to: 'home#video'
   get '/thankyou', to: 'home#thankyou'
   get '/noquestions', to: 'home#noquestions'

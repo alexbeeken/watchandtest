@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :assessments
+  has_and_belongs_to_many :assessments
   has_many :responses
 
   def reset

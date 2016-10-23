@@ -1,1 +1,9 @@
-gem 'bootstrap', '~> 4.0.0.alpha4'
+%h1
+  = "Create a new question for " + @assessment.name
+.container
+  = form_tag assessment_questions_path(assessment_id: @assessment.id) do
+    .form-group
+      = label :question, :text, 'question text'
+      = text_area :question, :text
+      </br>
+      = submit_tag 'Save Changes'

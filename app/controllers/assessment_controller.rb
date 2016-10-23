@@ -2,7 +2,7 @@ class AssessmentController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :verify_teacher, only: [:create]
-  before_filter :authorize_resource, except: [:create]
+  before_filter :authorize_resource, except: [:create, :index]
 
   def create
     assessment = Assessment.create(assessment_params)
@@ -13,7 +13,7 @@ class AssessmentController < ApplicationController
 
   def show
     @assessment = Assessment.find(params[:id])
-    @questions = @assessment.questions
+    @questions = @assessment.questions if @assessment.present?
   end
 
   def index
@@ -32,8 +32,8 @@ class AssessmentController < ApplicationController
 
   def authorize_resource
     current_user.admin ||
-      (current_user.teacher &&
-      Assessment.find(params[:id]).users.include?(current_user))
+    (current_user.teacher &&
+    Assessment.find(params[:id]).users.include?(current_user))
   end
 
   def verify_teacher
