@@ -1,0 +1,3 @@
+class QuestionText < QuestionMedium
+
+end

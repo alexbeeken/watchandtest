@@ -13,7 +13,7 @@
       - @questions.each do |question|
         %tr
           %td
-            = question.text
+            = link_to question.name, assessment_question_path(assessment_id: @assessment.id, id: question.id)
           %td
             = question.order_id
       %tr

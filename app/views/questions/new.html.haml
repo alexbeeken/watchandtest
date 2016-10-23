@@ -3,7 +3,12 @@
 .container
   = form_tag assessment_questions_path(assessment_id: @assessment.id) do
     .form-group
-      = label :question, :text, 'question text'
-      = text_area :question, :text
+      = label :question, :text, 'Name (will not be shown)'
+      = text_field :question, :name
+      </br>
+      = label :question_media, :text, 'Text'
+      = text_area :question_media, :text
+      = hidden_field :question_media, :type, value: "QuestionText"
+      = hidden_field :question_media, :order_id, value: "1"
       </br>
       = submit_tag 'Save Changes'

@@ -1,0 +1,14 @@
+%h1
+  = "Create a new question for " + @assessment.name
+.container
+  = form_tag assessment_question_path(assessment_id: @assessment.id, id: @question.id), method: :patch do
+    .form-group
+      = label :question, :text, 'Name (will not be shown)'
+      = text_field :question, :name
+      </br>
+      = label :question_media, :text, 'Text'
+      = text_area :question_media, :text, value: @question_medium.text
+      = hidden_field :question_media, :type, value: @question_medium.type
+      = hidden_field :question_media, :order_id, value: @question_medium.order_id
+      </br>
+      = submit_tag 'Save Changes'
